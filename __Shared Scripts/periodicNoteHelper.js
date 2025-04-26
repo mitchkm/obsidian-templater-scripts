@@ -57,10 +57,10 @@ function getWeeksInMonthLinkText(mMonth) {
     const week = mMonth.clone();
     const thisMonth = mMonth.month();
 
-    week.startOf('week');
+    week.startOf('isoWeek');
     let linkTexts = [week.format(LINK_FORMAT_WEEK)];
-    week.add(1, 'weeks');
-    for (; week.month() == thisMonth; week.add(1, 'weeks')) {
+    week.add(1, 'isoWeek');
+    for (; week.month() == thisMonth; week.add(1, 'isoWeek')) {
         linkTexts.push(week.format(LINK_FORMAT_WEEK));
     }
     return linkTexts;
