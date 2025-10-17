@@ -13,7 +13,7 @@ await tp.user.createOrFindNote(tp, noteNames.week, folder, weekTemplate);
 
 // Build frontmatter
 let frontmatter = {};
-frontmatter['created'] = tp.file.creation_date("YYYY-MM-DD HH:mm");
+frontmatter['created'] = tp.file.creation_date('YYYY-MM-DD HH:mm');
 frontmatter['tags'] = ['note/periodic/daily'];
 tp.hooks.on_all_templates_executed(async () => {
 	await tp.user.assignFrontmatter(tp, frontmatter, file);
@@ -37,3 +37,4 @@ const lastYearDay = dayDate.clone().subtract(1, 'years').format(p.LINK_FORMAT_DA
 > 
 # <% dayDate.format('dddd, MMMM Do YYYY') %>
 last year today: <% `[[${lastYearDay}]]` %>
+<% tp.file.include('[[daily-note-template-content]]') %>

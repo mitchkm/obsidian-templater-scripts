@@ -1,6 +1,5 @@
 <%*
-// Default setup
-const {title, filename, frontmatter} = await tp.user.noteSetup_default(tp);
+const {title, filename, frontmatter} = await tp.user.noteSetup_person(tp, "acquaintance");
 
 // Assign frontmatter after execution
 tp.hooks.on_all_templates_executed(async () => {
