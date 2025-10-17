@@ -7,6 +7,6 @@ async function my_function (tp) {
     if (title.startsWith("Untitled")) {
         title = await tp.system.prompt("Title") ?? "Untitled";
     }
-    return title;
+    return title.trim();
 }
 module.exports = my_function;

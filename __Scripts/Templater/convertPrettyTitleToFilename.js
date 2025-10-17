@@ -2,7 +2,7 @@
  * Takes the intended "pretty" title of a desired note in Obsidian and converts it to a conforming filename following naming conventions.
  * @example 'My Project - Really Cool Idea!' → 'my-project_really-cool-idea'
  * @param str The "pretty" title of a note.
- * @returns The true filename conforming to defined naming conventions.
+ * @returns The true filename conforming to naming conventions.
  */
 function my_function(str) {
     return str
