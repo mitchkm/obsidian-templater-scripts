@@ -91,6 +91,14 @@ class TaskViews {
             return this;
         }
 
+        withNoInitiative() {
+            this.checkIfNotesExist();
+
+            this.notes = this.notes.where(p => !p.initiative);
+
+            return this;
+        }
+
         /// Builder functions: Tasks ///
         getAllTasks(fromInitiative = null) {
             if (fromInitiative) {
@@ -154,7 +162,7 @@ class TaskViews {
             return this;
         }
 
-        // Filter notes by status (accepts a string or array of strings)
+        // Filter notes/tags by status (accepts a string or array of strings)
         filterByStatus(inStatuses) {
             const statuses = Array.isArray(inStatuses) ? inStatuses : [inStatuses];
 
@@ -171,17 +179,11 @@ class TaskViews {
 
         defaultSort(descending = false) {
             if (this.notes) {
-                this.notes.sort();
-                if (descending) {
-                    this.notes.reverse();
-                }
+                this.notes = this.notes.sort(p => p.file.name, descending ? "desc" : "asc");
             }
 
             if (this.tasks) {
-                this.tasks.sort();
-                if (descending) {
-                    this.tasks.reverse();
-                }
+                this.tasks = this.tasks.sort(t => t.text, descending ? "desc" : "asc");
             }
 
             return this;
@@ -252,6 +254,30 @@ class TaskViews {
                 });
             }
             this.dv.taskList(this.tasks, false);
+        }
+
+        projectOrganizedTaskView(showInitiative = false) {
+            this.checkIfTasksExist();
+            if (this.tasks.length === 0) {
+                this.dv.paragraph(TaskViewBuilder.NOTHING_TO_DISPLAY_TEXT);
+                return;
+            }
+
+            this.decorateTasksWithMetaInfo(this.tasks);
+            let result = Object.groupBy(this.tasks,
+                task => {
+                    const { initiativeLink, projectLink } = task[TaskViewBuilder.TASK_METAINFO_FIELD];
+                    let header = showInitiative ? `${initiativeLink} > ` : "";
+                    header += `${projectLink}`;
+                    return header;
+                }
+            );
+            let resultEntries = Object.entries(result);
+
+            for (const [header, tasks] of resultEntries) {
+                this.dv.header(4, header);
+                this.dv.taskList(tasks, false);
+            }
         }
     }
 }
