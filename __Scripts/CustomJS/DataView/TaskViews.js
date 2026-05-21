@@ -245,6 +245,10 @@ class TaskViews {
             if (showProject || showInitiative) {
                 this.decorateTasksWithMetaInfo(this.tasks);
                 this.tasks.forEach(task => {
+                    if (task.parent) {
+                        return;
+                    }
+
                     const { initiativeLink, projectLink } = task[TaskViewBuilder.TASK_METAINFO_FIELD];
 
                     task.visual = showInitiative ? `(${initiativeLink}) ` : "";

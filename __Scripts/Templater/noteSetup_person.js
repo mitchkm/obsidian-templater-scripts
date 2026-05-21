@@ -18,6 +18,7 @@ async function my_function (tp, affiliation) {
     frontmatter['nicknames'] = [];
     frontmatter['birthday'] = "";
     frontmatter['partner'] = "";
+    frontmatter['children'] = [];
 
     return {
         title,
