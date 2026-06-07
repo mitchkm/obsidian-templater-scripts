@@ -36,7 +36,7 @@ class DVHelper {
                 }
 
                 if (json) {
-                    console.log(page.title, label, match?.groups?.label, json);
+                    //console.log(page.title, label, match?.groups?.label, json);
                     break;
                 }
             }
